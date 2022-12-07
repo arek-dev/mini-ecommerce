@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&family=Roboto&family=Roboto+Condensed:wght@700&family=Source+Sans+Pro&display=swap');
+
+
+$bp-largest: 93.75em; // 1500px
+$bp-large: 75em; //1200px
+$bp-medium: 56.25em; //900px
+$bp-small: 48em; //768px
+$bp-smallest: 31.25em; //500px
+
+$color-grey-lighter: #f0f0f0;
+$color-grey-light: #e6e6e6;
+$color-grey-medium: #858585;
+$color-grey-medium-dark: #4a4a4a;
+$color-grey-dark: rgb(7, 7, 7);
+$color-green-1: #5ECE7B;
+$color-ecru: #fdf1e5;
+
+$font-raleway: 'Raleway', sans-serif;
+$font-roboto: 'Roboto', sans-serif;
+$font-source: 'Source Sans Pro', sans-serif;
+
+
+* {
+    margin: 0;
+    padding: 0;   
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    
+    font-size: 62.5%; // 1rem = 10px, 10px/16px = 62.5%
+
+    @media only screen and (max-width: $bp-largest) {
+        font-size: 55%;
+    }
+
+    @media only screen and (max-width: $bp-large) {
+        font-size: 45%;
+    }
+
+    @media only screen and (max-width: $bp-medium) {
+        font-size: 35%;
+    }
+
+    @media only screen and (max-width: $bp-small) {
+        font-size: 30%;
+    }
+}
+
+body {
+    font-family: $font-raleway;
+    font-weight: 300;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+
+.mb-xs {
+    margin-bottom: 1rem;
+}
+
+
+.mb-sm {
+    margin-bottom: 2rem;
+}
+
+
+.mb-md {
+    margin-bottom: 3rem;
+}
+
+
+.mb-lg {
+    margin-bottom: 5rem;
+}
+
+
+.mb-xl {
+    margin-bottom: 8rem;
+}
+
+.mr-auto {
+    margin-right: auto;   
+}
+
+
+
+.mt-xs {
+    margin-top: 1rem;
+}
+
+
+.mt-sm {
+    margin-top: 2rem;
+}
+
+
+.mt-md {
+    margin-top: 3rem;
+}
+
+
+.mt-lg {
+    margin-top: 5rem;
+}
+
+
+.mt-xl {
+    margin-top: 8rem;
+}
+
+.mr-auto {
+    margin-right: auto;
+}
+
+.wrap {
+    display: grid;
+    grid-template-columns: minmax(7rem, 1fr) 8fr minmax(7rem, 1fr);
+    background-color: #fff;
+}
