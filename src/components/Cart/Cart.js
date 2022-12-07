@@ -14,6 +14,9 @@ class Cart extends React.Component {
                   <p className={styles["cart__subtitle"]} >Running Short</p>
                   <p className={styles["cart__price"]} >$50.00</p>
                   <p className={`${styles["cart__properties"]} ${styles["mt-xs"]}`}>SIZE:</p>
+                  <div className={styles["cart__properties-items"]} >
+
+                  </div>
                 </div>  
 
                 </section>
