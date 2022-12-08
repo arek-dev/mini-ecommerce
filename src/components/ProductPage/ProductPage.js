@@ -1,13 +1,10 @@
 import React from "react";
 import { Query } from "@apollo/client/react/components";
 import { getProduct } from "../../queries/queries";
-import { setActiveCategory } from "../../redux/appSlice";
 import { connect } from "react-redux";
 import styles from "./ProductPage.module.scss";
-import addtocart from "../../images/addtocart.svg";
 import { setActiveProduct } from '../../redux/productSlice'
 import { sanitize } from "dompurify";
-
 
 const mapStateToProps = (state) => {
   return {
