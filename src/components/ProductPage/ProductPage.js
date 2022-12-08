@@ -4,6 +4,7 @@ import { getProduct } from "../../queries/queries";
 import { connect } from "react-redux";
 import styles from "./ProductPage.module.scss";
 import { setActiveProduct } from '../../redux/productSlice'
+import { addProduct } from '../../redux/cartSlice'
 import { sanitize } from "dompurify";
 
 const mapStateToProps = (state) => {
@@ -15,6 +16,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   setActiveProduct,
+  addProduct,
 };
 
 class ProductPage extends React.Component {
@@ -33,11 +35,9 @@ class ProductPage extends React.Component {
     console.log(this.lastItem);  
   }
 
-  componentDidUpdate() {     
-    this.props.setActiveProduct(this.lastItem);
-    console.log('update: ', this.lastItem);  
+  handleCartAdd = () => {
+    this.props.addProduct();
   }
-
 
   render() {
 
@@ -141,7 +141,13 @@ class ProductPage extends React.Component {
                     )}
                     
                   </p>
-                  <button type="submit" className={`${styles["singleproduct__submit"]} ${styles["mt-xs"]}`} >ADD TO CART</button>                
+                  <button 
+                    onClick={() => this.props.addProduct(data.product) }   
+                    type="submit" 
+                    className={`${styles["singleproduct__submit"]} ${styles["mt-xs"]}`} 
+                    >
+                    ADD TO CART
+                    </button>                
                 </div>
                 
               </section>

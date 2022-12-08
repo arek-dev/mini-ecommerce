@@ -79,6 +79,30 @@ $font-source: 'Source Sans Pro', sans-serif;
             }
         }
 
+        &-wrap {
+            position: relative;
+        }
+
+        &-badge {
+            position: absolute;
+            top: -1.3rem;
+            right: -1.2rem;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            background-color: #1D1F22;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+        }
+
+        &-counter {
+            color: #FFFFFF;
+            font-family: $font-roboto;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+
         &-nav {
             display: flex;
             flex-direction: column;

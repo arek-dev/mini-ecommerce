@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export const CategoriesSlice = createSlice({
+const CategoriesSlice = createSlice({
     name: 'categories',
     initialState: {
       activeCategory: '',
