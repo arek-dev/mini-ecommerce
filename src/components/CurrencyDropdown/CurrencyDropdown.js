@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 const mapStateToProps = (state) => {  
   return {
     activeCurrency: state.rootReducer.currency.activeCurrency,
-    cartQuantity: state.rootReducer.cart.quantity,
+    cartQuantity: state.rootReducer.cart.cartQuantity,
   };
 };
 
@@ -110,9 +110,11 @@ class CurrencyDropdown extends React.Component {
               <Link to="/cart">
                 <div className={styles['header__right-wrap']}>
                   <img src={cart} alt="cart icon" className={styles['header__right-img']}/>
+                  {this.props.cartQuantity > 0 ?
                   <div className={styles['header__right-badge']}>
                     <p className={styles['header__right-counter']}>{this.props.cartQuantity}</p>
                   </div>
+                  : null }
                 </div>
               </Link>
             </div>

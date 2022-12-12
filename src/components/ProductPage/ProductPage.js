@@ -27,6 +27,7 @@ class ProductPage extends React.Component {
     );
     this.state = {
       selectedImageIndex: 0,
+      itemQuantity: 1,
     };
   }
 
@@ -36,10 +37,12 @@ class ProductPage extends React.Component {
   }
 
   handleCartAdd = () => {
-    this.props.addProduct();
+    this.props.addProduct({});
   }
 
   render() {
+
+    const itemQuan = this.state.itemQuantity;
 
     return (
       <>
@@ -114,7 +117,7 @@ class ProductPage extends React.Component {
                           {attribute.items.map((attributeItem) => {
                           return (                          
                             <div key={data.product.id + attributeItem.id}>
-                              <input type="radio" name={attribute.name} id={attribute.name + attributeItem.id} value={attributeItem.value}/>
+                              <input type="radio" name={data.product.id + attribute.name} id={attribute.name + attributeItem.id} value={attributeItem.value}/>
                               <label for={attribute.name + attributeItem.id}>
                               <button type="button" className={`${styles["singleproduct__properties-btn"]}`} id={attribute.name + attributeItem.id}>{attributeItem.value}</button>
                               </label>
@@ -126,30 +129,28 @@ class ProductPage extends React.Component {
 
                   <p className={`${styles["singleproduct__properties"]} ${styles["mt-md"]}`}>PRICE:</p>
                   <p className={`${styles["singleproduct__price"]}`}>
-
                     {this.props.activeCurrency.label ? (
                       <>
-                        {this.props.activeCurrency.label + " "}   
+                        {this.props.activeCurrency.symbol + " "}   
                         {data.product.prices.find((el) => {
                          return el.currency.label === this.props.activeCurrency.label;
                         }).amount} 
                       </>
                       ) : (
                       <>
-                      {data.product.prices[0].currency.label} {data.product.prices[0].amount}
+                      $ {data.product.prices[0].amount}
                       </>                      
-                    )}
-                    
+                    )}                    
                   </p>
-                  <button 
-                    onClick={() => this.props.addProduct(data.product) }   
+                  <button                     
+                    onClick={data.product.inStock === true ? () => this.props.addProduct(data.product) : null}   
                     type="submit" 
                     className={`${styles["singleproduct__submit"]} ${styles["mt-xs"]}`} 
+                    style={data.product.inStock === false ? {backgroundColor: "#000000", cursor: "auto"} : null}
                     >
-                    ADD TO CART
+                    {data.product.inStock === true ? "ADD TO CART" : "Product currently not available"}                    
                     </button>                
-                </div>
-                
+                </div>                
               </section>
             );
           }}

@@ -35,14 +35,14 @@ class ProductsList extends React.Component {
 
                     {this.props.activeCurrency.label ? (
                       <>
-                        {this.props.activeCurrency.label + " "}   
+                        {this.props.activeCurrency.symbol + " "}   
                         {product.prices.find((el) => {
                          return el.currency.label === this.props.activeCurrency.label;
                         }).amount} 
                       </>
                       ) : (
                       <>
-                        {product.prices[0].currency.label} {product.prices[0].amount} 
+                        $ {product.prices[0].amount} 
                       </>                      
                     )}
                       
