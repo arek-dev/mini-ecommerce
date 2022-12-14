@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Cart.module.scss";
 import { connect } from "react-redux";
+import { addProduct, removeProduct } from '../../redux/cartSlice'
 import cartAdd from '../../images/cart_add.svg'
 import cartRemove from '../../images/cart_rem.svg'
 import CartGallery from "../CartGallery/CartGallery";
@@ -11,6 +12,12 @@ const mapStateToProps = (state) => {
     activeCurrency: state.rootReducer.currency.activeCurrency,
   };
 };
+
+const mapDispatchToProps = {
+  addProduct,
+  removeProduct,
+};
+
 
 class Cart extends React.Component {
   constructor(props) {
@@ -93,13 +100,19 @@ class Cart extends React.Component {
 
               <div className={`${styles["cart__pictures"]}`}>
                 <div className={`${styles["cart__addrem"]}`}>
-                  <button className={`${styles["cart__btn-addrem"]}`}>
+                  <button 
+                    onClick={() => this.props.addProduct(item.product)}   
+                    className={`${styles["cart__btn-addrem"]}`}
+                  >
                     <img src={cartAdd} alt="add" />
                   </button>
                   <p className={`${styles["cart__count"]}`}>
                   {item.productQuantity}
                   </p>
-                  <button className={`${styles["cart__btn-addrem"]}`}>
+                  <button
+                    onClick={() => this.props.removeProduct(item.product)}   
+                    className={`${styles["cart__btn-addrem"]}`}
+                  >
                     <img src={cartRemove} alt="remove" />
                   </button>
                 </div>
@@ -116,5 +129,5 @@ class Cart extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
 
