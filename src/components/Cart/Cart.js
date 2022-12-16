@@ -9,6 +9,7 @@ import CartGallery from "../CartGallery/CartGallery";
 const mapStateToProps = (state) => {
   return {
     products: state.rootReducer.cart.products,
+    cartQuantity: state.rootReducer.cart.cartQuantity,
     activeCurrency: state.rootReducer.currency.activeCurrency,
   };
 };
@@ -27,7 +28,21 @@ class Cart extends React.Component {
     };
   }
 
+  countCartValue(tempValue, item) {
+    let totalPrice = tempValue;
+    const price = item.product.prices.find(
+      (el) => el.currency.label === this.props.activeCurrency.label,
+    ).amount;
+    const productSum = price * item.productQuantity;
+    totalPrice += productSum;
+    console.log(productSum);
+    console.log(totalPrice);
+    return totalPrice;
+  }
+
   render() {
+
+    let tempValue = 0;
     return (
       <>
         <section className={styles["cart__wrap"]}>
@@ -40,8 +55,11 @@ class Cart extends React.Component {
             ) : null
             };
 
-            {this.props.products?.map((item) =>
-            <>
+            {this.props.products?.map((item) =>{
+              tempValue = this.countCartValue(tempValue, item);
+
+            return (
+            <>            
               <div key={item.product.id} className={styles["cart__description"]}>
                 <h4 className={styles["cart__title"]}>{item.product.brand}</h4>
                 <p className={styles["cart__subtitle"]}>{item.product.name}</p>
@@ -52,12 +70,12 @@ class Cart extends React.Component {
                       {item.product.prices.find((el) => {
                         return el.currency.label === this.props.activeCurrency.label;
                       }).amount} 
-                      </>
+                    </>
                       ) : (
-                      <>
+                    <>
                       $ {item.product.prices[0].amount}
-                      </>                      
-                    )}
+                    </>                      
+                  )}
                 </p>
 
                 {item.product.attributes.map((attribute) => {
@@ -120,14 +138,38 @@ class Cart extends React.Component {
                   <CartGallery data={item.product.gallery} />                   
                 </div>
               </div>
-              <div className={`${styles["cart__wrap-divider"]}`}></div>             
+              <div className={`${styles["cart__wrap-divider"]}`}></div>       
            </>
-            )}                     
+           )}
+            )}   
+            <div className={`${styles["cart__summary"]}`}>
+                <div className={`${styles["cart__summary-left"]}`}>
+                  <p>Tax 21%:</p>
+                  <p>Quantity:</p>
+                  <p>Total:</p>
+                </div>
+                <div className={`${styles["cart__summary-right"]}`}>
+                  <p>
+                    {this.props.activeCurrency.label ? (                    
+                    `${this.props.activeCurrency.symbol + " "}`                  
+                    ) : (`$`)} 
+                    {(tempValue*21/100).toFixed(2)}
+                  </p>
+                  <p>{this.props.cartQuantity}</p>
+                  <p>
+                  {this.props.activeCurrency.label ? (                    
+                    `${this.props.activeCurrency.symbol + " "}`                  
+                    ) : (`$`)} 
+                  {tempValue.toFixed(2)}
+                  </p>
+                </div>
+              </div>  
+              <button type="submit" className={`${styles["cart__order"]} ${styles["mt-xs"]}`} >ORDER</button>                   
         </section>
       </>
+            
     );
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
-
