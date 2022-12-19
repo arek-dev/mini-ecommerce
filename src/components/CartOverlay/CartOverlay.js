@@ -22,10 +22,8 @@ const mapDispatchToProps = {
 
 class CartOverlay extends React.Component {
 
-  inputRef = createRef();
   constructor(props) {
     super(props);
-    this.buttonRef = React.createRef();
     this.wrapperRefCart = React.createRef(null);
     this.handleClickOutsideCart = this.handleClickOutsideCart.bind(this);
     this.toggle = this.toggle.bind(this);
@@ -40,8 +38,7 @@ class CartOverlay extends React.Component {
 
   toggleOff = () => {
     this.setState({ openCart: false });
-  } 
-
+  }
   
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutsideCart, { capture: true });
@@ -54,10 +51,10 @@ class CartOverlay extends React.Component {
 
   handleClickOutsideCart(event) {
     if (
-      this.inputRef.current && 
-      !this.inputRef.current.contains(event.target)
+      this.wrapperRefCart.current && 
+      !this.wrapperRefCart.current.contains(event.target)
       ) {
-        console.log(event.target, 'ref:', this.inputRef);
+        console.log(event.target, 'ref:', this.wrapperRefCart);
         this.setState({ openCart: false });
     }
   }
@@ -84,7 +81,7 @@ class CartOverlay extends React.Component {
         
       <>
         <div className={styles["overlay"]}></div>
-        <div ref={this.inputRef} className={styles["cart__overlay"]}>
+        <div ref={this.wrapperRefCart} className={styles["cart__overlay"]}>
           <h4 className={styles["cart__overlay-heading"]}>My Bag. {this.props.cartQuantity} items</h4>
             {this.props.products.length === 0 ? (
               <div className={styles["cart__description"]}>
@@ -196,9 +193,7 @@ class CartOverlay extends React.Component {
             </div>  
             <div className={`${styles["cart__summary-buttons"]}`}>
               <button 
-                ref = {this.buttonRef}
                 type="button"
-                
                 className={`${styles["cart__summary-view"]} ${styles["mt-xs"]}`} 
               >
                <Link onClick={this.toggleOff.bind(this)} to="/cart">view bag</Link>              
