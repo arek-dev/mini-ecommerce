@@ -7,6 +7,7 @@ import styles from "./CurrencyDropdown.module.scss";
 import arrowDown from '../../images/arrow_down.svg';
 import cart from '../../images/cart.svg';
 import { Link } from "react-router-dom";
+import CartOverlay from '../CartOverlay/CartOverlay';
 
 
 const mapStateToProps = (state) => {  
@@ -26,12 +27,17 @@ class CurrencyDropdown extends React.Component {
         super(props);
         this.wrapperRef = React.createRef(false);
         this.handleClickOutside = this.handleClickOutside.bind(this);
+        this.child = React.createRef();
         this.state = {
           open: false,
         };
       }
 
-    handleOpen = () => {
+      onClickCart = () => {
+        this.child.current.toggle();
+      };  
+     
+      handleOpen = () => {
         this.setState(prevState => ({
             open: !prevState.open
           }));
@@ -47,8 +53,10 @@ class CurrencyDropdown extends React.Component {
       }
     
       handleClickOutside(event) {
+        event.stopPropagation();
         if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
             this.setState({ open: false});
+            event.stopPropagation();
         }
       }      
 
@@ -107,16 +115,15 @@ class CurrencyDropdown extends React.Component {
               </Query>
 
               </div> 
-              <Link to="/cart">
-                <div className={styles['header__right-wrap']}>
+                <div role="button" className={styles['header__right-wrap']} onClick={() => this.clickChild()}>
                   <img src={cart} alt="cart icon" className={styles['header__right-img']}/>
                   {this.props.cartQuantity > 0 ?
                   <div className={styles['header__right-badge']}>
                     <p className={styles['header__right-counter']}>{this.props.cartQuantity}</p>
                   </div>
                   : null }
+                  <CartOverlay setClick={click => this.clickChild = click}/>
                 </div>
-              </Link>
             </div>
         );
     }

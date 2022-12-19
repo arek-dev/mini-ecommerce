@@ -1,11 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import styles from "./Header.module.scss";
 import HeaderNav from '../HeaderNav/HeaderNav';
 import logo from '../../images/logo.svg';
 import { Link } from "react-router-dom";
 import CurrencyDropdown from '../CurrencyDropdown/CurrencyDropdown';
-
 
 class Header extends React.Component {
     render() {

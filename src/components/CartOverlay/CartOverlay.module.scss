@@ -1,0 +1,390 @@
+$bp-largest: 93.75em; // 1500px
+$bp-large: 75em; //1200px
+$bp-medium: 56.25em; //900px
+$bp-small: 48em; //768px
+$bp-smallest: 31.25em; //500px
+
+$color-grey-lighter: #f0f0f0;
+$color-grey-light: #e6e6e6;
+$color-grey-medium: #858585;
+$color-grey-medium-dark: #4a4a4a;
+$color-grey-dark: rgb(7, 7, 7);
+$color-green-1: #5ECE7B;
+$color-ecru: #fdf1e5;
+
+$font-raleway: 'Raleway', sans-serif;
+$font-roboto: 'Roboto', sans-serif;
+$font-source: 'Source Sans Pro', sans-serif;
+$font-robotocond: 'Roboto Condensed', sans-serif;
+
+.mt-xs {
+    margin-top: 1rem;
+}
+
+.mt-md2 {
+    margin-top: 4rem;
+}
+
+.overlay {
+  position: fixed;
+  display: block;
+  top: 6.6rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+  backdrop-filter: blur(5px);
+}
+
+
+.cart {
+
+    &__overlay {    
+        display: flex;
+        flex-direction: column;
+        width: 32.5rem;
+        position: absolute;
+        top: 3rem;
+        right: 10%;
+        background-color: #ffffff;
+        padding: 1.6rem; 
+        z-index: 50;
+
+        &-heading {
+            grid-column: 1 / 4;
+            font-weight: 700;
+            font-size: 1.6rem;
+            font-family: $font-raleway;
+            line-height: 1.6;
+            color: #000;
+            margin-bottom: 2.4rem;
+        }
+
+        &-divider {
+            grid-column: 1 / 4;
+            border-bottom: 1px solid #E5E5E5;
+            height: 1px;
+        }
+    }
+
+    &__item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 3rem;
+    }
+
+    &__pictures {
+        grid-column: 3 / 4;
+        display: flex;
+        justify-content: flex-end;
+        line-height: 0.7;
+
+        &-fig {
+            margin-left: 0.8rem;
+            position: relative;
+        }
+
+        &-img {
+            width: 12rem;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    &__addrem {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__switch {
+        &-wrap {
+            position: absolute;    
+            display: flex;
+            bottom: 2rem;
+            right: 2rem; 
+            column-gap: 0.8rem;       
+        }
+
+        &-btn {
+            width: 2.4rem;
+            height: 2.4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+    }
+
+    &__count {
+        font-weight: 500;
+        font-size: 1.6rem;
+        font-family: $font-raleway;
+        line-height: 1.6;
+        color: #000; 
+        text-align: center;     
+    }
+
+    &__btn {
+        &-addrem {
+            background-color: #fff;
+            width: 2.4rem;
+            height: 2.4rem;
+            display: flex;
+            border: 1px solid #1D1F22;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+
+        &-img {
+            width: 50%;
+            height: 50%;
+        }
+    }
+    
+
+    &__addtocart {
+        position: absolute;
+        bottom: 7rem;
+        right: 3rem;
+        display: none;
+    }
+
+    &__galpic {
+        margin-bottom: 3.9rem;
+    }
+
+    &__galimg {
+        width: 8rem;
+        height: 8rem;
+        object-fit: cover;
+        max-width: 100%;
+    }
+
+    &__mainpic {
+
+    }
+
+    &__mainimg {
+        width: 61rem;
+        height: 51rem;
+        object-fit: cover;
+        max-width: 100%;
+    }
+
+    
+    &__description {
+        grid-column: 1 / 2;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title {
+        font-weight: 300;
+        font-size: 1.6rem;
+        font-family: $font-raleway;
+        line-height: 1.6;
+        color: #000;
+    }    
+
+    &__price {
+        font-weight: 500;
+        font-size: 1.6rem;
+        font-family: $font-raleway;
+        line-height: 1.6;
+        color: #000;
+    }
+
+    &__submit {
+        background-color: #5ECE7B;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.6rem;
+        font-family: $font-raleway;
+        line-height: 1.6;
+        height: 5.2rem;
+        width: 100%;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #3bbf5e;
+        }
+    }
+
+    &__order {
+        grid-column: 1 / 2;
+        background-color: #5ECE7B;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.6rem;
+        font-family: $font-raleway;
+        line-height: 1.6;
+        height: 5.2rem;
+        width: 100%;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #3bbf5e;
+        }
+    }
+
+    &__summary {
+        display: flex;
+        margin-top: 2rem;
+        justify-content: space-between;
+
+        &-left,
+        &-right {
+            flex-basis: max-content;
+            font-weight: 500;
+            font-size: 1.6rem;
+            font-family: $font-roboto;
+        }
+
+        &-left p,
+        &-right p {
+            line-height: 1.4;
+        }
+
+        &-right {
+            font-weight: 700;
+            font-family: $font-raleway;
+        }
+
+        &-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &-checkout {
+            background-color: #5ECE7B;
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.6rem;
+            font-family: $font-raleway;
+            text-transform: uppercase;
+            line-height: 1.6;
+            height: 4.3rem;
+            width: 47%;
+            border: none;
+            cursor: pointer;
+    
+            &:hover {
+                background-color: #3bbf5e;
+            }
+        }
+
+        &-view {
+            background-color: #ffffff;
+            color: #1D1F22;
+            font-weight: 600;
+            font-size: 1.6rem;
+            font-family: $font-raleway;
+            text-transform: uppercase;
+            line-height: 1.6;
+            height: 4.3rem;
+            width: 47%;
+            border: 1px solid #1D1F22;
+            cursor: pointer;
+
+            & a {
+                text-decoration: none;
+                color: #000;
+            }
+    
+            &:hover {
+                color: #666b72;
+                border: 1px solid #666b72;
+            }
+        }
+        
+    
+    }
+
+    &__text {
+        font-weight: 400;
+        font-size: 1.6rem;
+        font-family: $font-roboto;
+        line-height: 1.6;
+        color: #000;
+    }
+
+    &__properties {
+        font-weight: 400;
+        font-size: 1.4rem;
+        font-family: $font-raleway;
+        line-height: 1.6;
+        color: #000;
+
+        &-items {
+            display: flex;
+            flex-direction: row;
+            column-gap: 1.2rem;
+            grid-column-gap: 1.2rem;
+        }
+
+        &-items input[type="radio"] {
+            opacity: 0;
+            display: none;
+            width: 0;
+        }
+
+        &-items label {
+            cursor: pointer;
+        }
+
+        &-items input[type="radio"]:checked + label > button {
+            background-color: #1D1F22;
+            color: #fff;
+        }
+
+        &-btn {
+            background-color: #fff;
+            border: 1px solid #1D1F22;
+            display: flex;
+            font-family: $font-source;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            font-size: 1.4rem;
+            min-width: 2.4rem;
+            min-height: 2.4rem;
+            pointer-events: none;
+            cursor: pointer;
+        }
+
+        &-color {
+            background-color: #ffffff;
+            display: inline-block;
+            min-width: 1.6rem;
+            min-height: 1.6rem;
+            cursor: pointer;
+        }
+
+        &-items input[type="radio"]:checked + label > span {
+            border: 1px solid #ffffff;
+            outline: 1px solid #5ECE7B;
+        }
+
+    }    
+
+    &__teaser {
+        margin-top: 2.4rem;        
+    }
+    
+}

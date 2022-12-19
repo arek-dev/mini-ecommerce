@@ -4,6 +4,7 @@ import ProductsList from './components/ProductsList/ProductsList'
 import ProductPage from './components/ProductPage/ProductPage'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Cart from './components/Cart/Cart';
+import CartOverlay from './components/CartOverlay/CartOverlay';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" />
           <Route path="/category/:category" element={<ProductsList />} />    
           <Route path="/products/:product" element={<ProductPage />} />       
+          <Route path="/cartoverlay" element={<CartOverlay />} />   
           <Route path="/cart" element={<Cart />} />   
         </Routes>
       </div>

@@ -1,10 +1,11 @@
 import React from "react";
-import styles from "./Cart.module.scss";
+import { createRef } from 'react';
+import styles from "./CartOverlay.module.scss";
 import { connect } from "react-redux";
 import { addProduct, removeProduct } from '../../redux/cartSlice'
+import { Link } from "react-router-dom";
 import cartAdd from '../../images/cart_add.svg'
 import cartRemove from '../../images/cart_rem.svg'
-import CartGallery from "../CartGallery/CartGallery";
 
 const mapStateToProps = (state) => {
   return {
@@ -19,13 +20,46 @@ const mapDispatchToProps = {
   removeProduct,
 };
 
+class CartOverlay extends React.Component {
 
-class Cart extends React.Component {
+  inputRef = createRef();
   constructor(props) {
     super(props);
+    this.buttonRef = React.createRef();
+    this.wrapperRefCart = React.createRef(null);
+    this.handleClickOutsideCart = this.handleClickOutsideCart.bind(this);
+    this.toggle = this.toggle.bind(this);
     this.state = {
-      imageIndex: 0,
+      openCart: false,
     };
+  }
+
+  toggle = () => {
+    this.setState({ openCart: true });
+  } 
+
+  toggleOff = () => {
+    this.setState({ openCart: false });
+  } 
+
+  
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutsideCart, { capture: true });
+    this.props.setClick(this.toggle);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutsideCart, { capture: true });
+  }
+
+  handleClickOutsideCart(event) {
+    if (
+      this.inputRef.current && 
+      !this.inputRef.current.contains(event.target)
+      ) {
+        console.log(event.target, 'ref:', this.inputRef);
+        this.setState({ openCart: false });
+    }
   }
 
   countCartValue(tempValue, item) {
@@ -39,34 +73,35 @@ class Cart extends React.Component {
     )
     const productSum = price * item.productQuantity;
     totalPrice += productSum;
-    console.log(productSum);
-    console.log(totalPrice);
     return totalPrice;
   }
 
   render() {
-
     let tempValue = 0;
     return (
+            
+      this.state.openCart && (
+        
       <>
-        <section className={styles["cart__wrap"]}>
-          <h4 className={styles["cart__wrap-heading"]}>Cart</h4>
-          <div className={`${styles["cart__wrap-divider"]} ${styles["mt-md2"]}`}></div>
+        <div className={styles["overlay"]}></div>
+        <div ref={this.inputRef} className={styles["cart__overlay"]}>
+          <h4 className={styles["cart__overlay-heading"]}>My Bag. {this.props.cartQuantity} items</h4>
             {this.props.products.length === 0 ? (
               <div className={styles["cart__description"]}>
                 <h4 className={styles["cart__title"]}>Your cart is empty</h4>
               </div>            
             ) : null
-            };
+            }
 
             {this.props.products?.map((item) =>{
               tempValue = this.countCartValue(tempValue, item);
 
             return (
-            <>            
-              <div key={item.product.id} className={styles["cart__description"]}>
+            <>
+              <div key={item.product.id} className={styles["cart__item"]}>
+              <div className={styles["cart__description"]}>
                 <h4 className={styles["cart__title"]}>{item.product.brand}</h4>
-                <p className={styles["cart__subtitle"]}>{item.product.name}</p>
+                <p className={styles["cart__title"]}>{item.product.name}</p>
                 <p className={styles["cart__price"]}>
                   {this.props.activeCurrency.label ? (
                     <>
@@ -139,41 +174,43 @@ class Cart extends React.Component {
                   </button>
                 </div>
                 <div className={`${styles["cart__pictures-fig"]}`}>
-                  <CartGallery data={item.product.gallery} />                   
+                  <img src={item.product.gallery[0]} alt={item.product.name} className={`${styles["cart__pictures-img"]}`}/>
                 </div>
               </div>
-              <div className={`${styles["cart__wrap-divider"]}`}></div>       
+              </div>
            </>
            )}
             )}   
             <div className={`${styles["cart__summary"]}`}>
-                <div className={`${styles["cart__summary-left"]}`}>
-                  <p>Tax 21%:</p>
-                  <p>Quantity:</p>
-                  <p>Total:</p>
-                </div>
-                <div className={`${styles["cart__summary-right"]}`}>
-                  <p>
-                    {this.props.activeCurrency.label ? (                    
-                    `${this.props.activeCurrency.symbol + " "}`                  
-                    ) : (`$ `)} 
-                    {(tempValue*21/100).toFixed(2)}
-                  </p>
-                  <p>{this.props.cartQuantity}</p>
-                  <p>
+              <div className={`${styles["cart__summary-left"]}`}>
+                <p>Total:</p>
+              </div>
+              <div className={`${styles["cart__summary-right"]}`}>
+                <p>
                   {this.props.activeCurrency.label ? (                    
                     `${this.props.activeCurrency.symbol + " "}`                  
                     ) : (`$ `)} 
                   {tempValue.toFixed(2)}
-                  </p>
-                </div>
-              </div>  
-              <button type="submit" className={`${styles["cart__order"]} ${styles["mt-xs"]}`} >ORDER</button>                   
-        </section>
-      </>
+                </p>
+              </div>
+            </div>  
+            <div className={`${styles["cart__summary-buttons"]}`}>
+              <button 
+                ref = {this.buttonRef}
+                type="button"
+                
+                className={`${styles["cart__summary-view"]} ${styles["mt-xs"]}`} 
+              >
+               <Link onClick={this.toggleOff.bind(this)} to="/cart">view bag</Link>              
+              </button>
+              <button type="submit" className={`${styles["cart__summary-checkout"]} ${styles["mt-xs"]}`} >check out</button>
+            </div>
             
+        </div>
+      </>
+      )            
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(CartOverlay);
