@@ -27,6 +27,8 @@ class CartOverlay extends React.Component {
     this.wrapperRefCart = React.createRef(null);
     this.handleClickOutsideCart = this.handleClickOutsideCart.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.scrollLock = this.scrollLock.bind(this);
+    this.scrollUnlock = this.scrollUnlock.bind(this);
     this.state = {
       openCart: false,
     };
@@ -34,12 +36,21 @@ class CartOverlay extends React.Component {
 
   toggle = () => {
     this.setState({ openCart: true });
+    this.scrollLock();
   } 
 
   toggleOff = () => {
     this.setState({ openCart: false });
   }
   
+  scrollLock = () => {
+    document.body.style.overflowY = 'hidden';
+  }
+
+  scrollUnlock = () => {
+    document.body.style.overflowY = '';
+  }
+
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutsideCart, { capture: true });
     this.props.setClick(this.toggle);
@@ -56,6 +67,7 @@ class CartOverlay extends React.Component {
       ) {
         console.log(event.target, 'ref:', this.wrapperRefCart);
         this.setState({ openCart: false });
+        this.scrollUnlock();
     }
   }
 
