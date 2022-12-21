@@ -5,6 +5,7 @@ import { addProduct, removeProduct } from '../../redux/cartSlice'
 import cartAdd from '../../images/cart_add.svg'
 import cartRemove from '../../images/cart_rem.svg'
 import CartGallery from "../CartGallery/CartGallery";
+import { Link } from "react-router-dom";
 
 const mapStateToProps = (state) => {
   return {
@@ -65,7 +66,9 @@ class Cart extends React.Component {
             return (
             <>            
               <div key={item.product.id} className={styles["cart__description"]}>
-                <h4 className={styles["cart__title"]}>{item.product.brand}</h4>
+                <Link to={`/products/${item.product.id}`} >
+                  <h4 className={styles["cart__title"]}>{item.product.brand}</h4>
+                </Link>
                 <p className={styles["cart__subtitle"]}>{item.product.name}</p>
                 <p className={styles["cart__price"]}>
                   {this.props.activeCurrency.label ? (
