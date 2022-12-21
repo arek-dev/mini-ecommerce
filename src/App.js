@@ -5,6 +5,7 @@ import ProductPage from './components/ProductPage/ProductPage'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Cart from './components/Cart/Cart';
 import CartOverlay from './components/CartOverlay/CartOverlay';
+import MainPage from './components/MainPage/MainPage';
 
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
       <div className={styles.wrap}>
       <Header />
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<MainPage />} />
           <Route path="/category/:category" element={<ProductsList />} />    
           <Route path="/products/:product" element={<ProductPage />} />       
           <Route path="/cartoverlay" element={<CartOverlay />} />   
