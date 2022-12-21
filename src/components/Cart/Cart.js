@@ -68,8 +68,8 @@ class Cart extends React.Component {
               <div key={item.product.id} className={styles["cart__description"]}>
                 <Link to={`/products/${item.product.id}`} >
                   <h4 className={styles["cart__title"]}>{item.product.brand}</h4>
+                  <p className={styles["cart__subtitle"]}>{item.product.name}</p>
                 </Link>
-                <p className={styles["cart__subtitle"]}>{item.product.name}</p>
                 <p className={styles["cart__price"]}>
                   {this.props.activeCurrency.label ? (
                     <>
