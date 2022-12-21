@@ -228,6 +228,7 @@ $font-source: 'Source Sans Pro', sans-serif;
     font-family: $font-raleway;
     letter-spacing: 1px;
     line-height: 1.2;
+    text-transform: capitalize;
 
     @media only screen and (max-width: $bp-large) {
         font-size: 3rem;
