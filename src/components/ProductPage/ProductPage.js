@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import styles from "./ProductPage.module.scss";
 import { setActiveProduct } from '../../redux/productSlice'
 import { addProduct } from '../../redux/cartSlice'
-import { sanitize } from "dompurify";
+import { Interweave } from 'interweave';
 
 const mapStateToProps = (state) => {
   return {
@@ -42,8 +42,6 @@ class ProductPage extends React.Component {
 
   render() {
 
-    const itemQuan = this.state.itemQuantity;
-
     return (
       <>
         <Query query={getProduct} variables={{ id: this.lastItem }}>
@@ -66,7 +64,7 @@ class ProductPage extends React.Component {
                       >
                         <img
                           src={image}
-                          alt="image"
+                          alt={data.product.name}
                           className={`${styles["singleproduct__galimg"]}`}
                         />
                       </figure>
@@ -78,7 +76,7 @@ class ProductPage extends React.Component {
                   <figure className={`${styles["singleproduct__mainpic"]}`}>
                     <img
                       src={data.product.gallery[this.state.selectedImageIndex]}
-                      alt="image"
+                      alt={data.product.name}
                       className={`${styles["singleproduct__mainimg"]}`}
                     />
                   </figure>
@@ -87,7 +85,6 @@ class ProductPage extends React.Component {
                 <div className={`${styles["singleproduct__description"]}`}>
                   <h4 className={`${styles["singleproduct__title"]}`}>{data.product.brand}</h4>
                   <p className={`${styles["singleproduct__subtitle"]}`}>{data.product.name}</p>
-                  <div dangerouslySetInnerHTML={{ __html: sanitize(data.product.description) }} className={`${styles["singleproduct__text"]}`}/>
 
                   {data.product.attributes.map((attribute) => {
                     if (attribute.type === "swatch") {
@@ -134,22 +131,23 @@ class ProductPage extends React.Component {
                         {this.props.activeCurrency.symbol + " "}   
                         {data.product.prices.find((el) => {
                          return el.currency.label === this.props.activeCurrency.label;
-                        }).amount} 
+                        }).amount.toFixed(2)} 
                       </>
                       ) : (
                       <>
-                      $ {data.product.prices[0].amount}
+                      $ {data.product.prices[0].amount.toFixed(2)}
                       </>                      
                     )}                    
                   </p>
                   <button                     
-                    onClick={data.product.inStock === true ? () => this.props.addProduct(data.product) : null}   
+                    onClick={data.product.inStock ? () => this.props.addProduct(data.product) : null}   
                     type="submit" 
                     className={`${styles["singleproduct__submit"]} ${styles["mt-xs"]}`} 
-                    style={data.product.inStock === false ? {backgroundColor: "#000000", cursor: "auto"} : null}
+                    style={!data.product.inStock ? {backgroundColor: "#000000", cursor: "auto"} : null}
                     >
-                    {data.product.inStock === true ? "ADD TO CART" : "Product currently not available"}                    
-                    </button>                
+                    {data.product.inStock ? "ADD TO CART" : "Product currently not available"}                    
+                    </button> 
+                    <Interweave content={data.product.description} className={`${styles["singleproduct__text"]}`}/>;
                 </div>                
               </section>
             );

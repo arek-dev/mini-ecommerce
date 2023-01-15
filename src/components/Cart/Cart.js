@@ -35,8 +35,8 @@ class Cart extends React.Component {
     this.props.activeCurrency.label ? 
       (item.product.prices.find(
       (el) => el.currency.label === this.props.activeCurrency.label,
-      ).amount) : (
-      item.product.prices[0].amount
+      ).amount.toFixed(2)) : (
+      item.product.prices[0].amount.toFixed(2)
     )
     const productSum = price * item.productQuantity;
     totalPrice += productSum;
@@ -76,11 +76,11 @@ class Cart extends React.Component {
                       {this.props.activeCurrency.symbol + " "}   
                       {item.product.prices.find((el) => {
                         return el.currency.label === this.props.activeCurrency.label;
-                      }).amount} 
+                      }).amount.toFixed(2)} 
                     </>
                       ) : (
                     <>
-                      $ {item.product.prices[0].amount}
+                      $ {item.product.prices[0].amount.toFixed(2)}
                     </>                      
                   )}
                 </p>

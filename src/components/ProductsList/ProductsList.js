@@ -38,11 +38,11 @@ class ProductsList extends React.Component {
                         {this.props.activeCurrency.symbol + " "}   
                         {product.prices.find((el) => {
                          return el.currency.label === this.props.activeCurrency.label;
-                        }).amount} 
+                        }).amount.toFixed(2)} 
                       </>
                       ) : (
                       <>
-                        $ {product.prices[0].amount} 
+                        $ {product.prices[0].amount.toFixed(2)} 
                       </>                      
                     )}
                       
