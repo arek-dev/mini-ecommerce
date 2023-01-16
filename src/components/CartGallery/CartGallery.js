@@ -15,7 +15,7 @@ class CartGallery extends React.Component {
     let index = this.state.galleryIndex;
     index -= 1;
     if (index === -1) {
-      index = this.props.data.length - 1;
+      index = this.props.data.gallery.length - 1;
     }
     this.setState(() => ({ galleryIndex: index }));
   }
@@ -23,7 +23,7 @@ class CartGallery extends React.Component {
   nextImage() {
     let index = this.state.galleryIndex;
     index += 1;
-    if (index === this.props.data.length) {
+    if (index === this.props.data.gallery.length) {
       index = 0;
     }
     this.setState(() => ({ galleryIndex: index }));
@@ -33,11 +33,11 @@ class CartGallery extends React.Component {
     return (
       <>
         <img 
-          src={this.props.data[this.state.galleryIndex]}
-          alt="image" 
+          src={this.props.data.gallery[this.state.galleryIndex]}
+          alt={this.props.data.name} 
           className={`${styles["cart__pictures-img"]}`}
         />
-        {this.props.data.length > 1 ? (
+        {this.props.data.gallery.length > 1 ? (
           <div className={`${styles["cart__switch-wrap"]}`}>
             <button
               className={`${styles["cart__switch-btn"]}`}

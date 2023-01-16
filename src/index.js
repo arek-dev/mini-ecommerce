@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import { ApolloClient, InMemoryCache, ApolloProvider, } from "@apollo/client";
 import { Provider } from "react-redux";
+
 import store from "./redux/store"
 
 const client = new ApolloClient({
@@ -16,7 +17,7 @@ root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <Provider store={store}>
-        <App />
+          <App />        
       </Provider>
     </ApolloProvider>,
   </React.StrictMode>

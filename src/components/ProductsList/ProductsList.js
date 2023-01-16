@@ -30,7 +30,7 @@ class ProductsList extends React.Component {
             }
               <img src={product.gallery[0]} alt={product.name} className={styles["product__img"]} />
               <div className={styles["product__teaser"]}>
-                    <h4 className={styles["product__description"]}>{product.name}</h4>
+                    <h4 className={styles["product__description"]}>{product.brand} {product.name}</h4>
                     <div className={styles["product__price"]}>
 
                     {this.props.activeCurrency.label ? (

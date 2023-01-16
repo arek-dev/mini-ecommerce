@@ -34,11 +34,7 @@ $font-source: 'Source Sans Pro', sans-serif;
         flex-basis: 33.3%;
         align-self: center;
         display: flex;
-        justify-content: center;
-
-        &-img {
-
-        }
+        justify-content: center;       
     }
 
     &__right {
@@ -145,6 +141,13 @@ $font-source: 'Source Sans Pro', sans-serif;
         grid-gap: 4rem;
         margin-top: 13rem;
         flex-wrap: wrap;
+
+        & a,
+        &:link,
+        &:visited {
+            text-decoration: none;
+        }
+        
     }    
 
     &__wrap {

@@ -142,7 +142,7 @@ class Cart extends React.Component {
                   </button>
                 </div>
                 <div className={`${styles["cart__pictures-fig"]}`}>
-                  <CartGallery data={item.product.gallery} />                   
+                  <CartGallery data={item.product} />                   
                 </div>
               </div>
               <div className={`${styles["cart__wrap-divider"]}`}></div>       
