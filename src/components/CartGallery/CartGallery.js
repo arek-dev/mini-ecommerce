@@ -12,21 +12,21 @@ class CartGallery extends React.Component {
   }
 
   previousImage() {
-    let index = this.state.galleryIndex;
-    index -= 1;
-    if (index === -1) {
-      index = this.props.data.gallery.length - 1;
+    const galleryLength = this.props.data.gallery.length - 1;
+    if (this.state.galleryIndex === 0) {
+      this.setState({ galleryIndex: galleryLength });
+    } else {
+      this.setState((prev) => ({ galleryIndex: prev.galleryIndex - 1 }));
     }
-    this.setState(() => ({ galleryIndex: index }));
   }
 
   nextImage() {
-    let index = this.state.galleryIndex;
-    index += 1;
-    if (index === this.props.data.gallery.length) {
-      index = 0;
-    }
-    this.setState(() => ({ galleryIndex: index }));
+    const galleryLength = this.props.data.gallery.length - 1;
+      if (this.state.galleryIndex === galleryLength) {
+        this.setState({ galleryIndex: 0 });
+      } else {
+        this.setState((prev) => ({ galleryIndex: prev.galleryIndex + 1 }));
+      }   
   }
 
   render() {
